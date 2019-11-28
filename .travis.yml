@@ -4,6 +4,8 @@ env:
   global:
     - JAVA8_HOME=$(jdk_switcher home oraclejdk8)
     - JAVA9_HOME=$(jdk_switcher home oraclejdk9)
+    - JAVA12_HOME=/home/travis/jdk-12.0.2
+    - JAVA_HOME=/home/travis/jdk-12.0.2
     # this variable determine when docker images are tagged 'latest'
     - LATEST_VERSION=6.8.4
     # Make sure gcloud command is on our PATH and the App Engine SDK is in the Python path
@@ -19,9 +21,7 @@ language:
   - bash
 
 jdk:
-  - oraclejdk11
   - oraclejdk8
-  - oraclejdk9
 
 services:
   - docker
@@ -38,13 +38,14 @@ cache:
     - $HOME/google-cloud-sdk/
 
 before_install:
+  # solves gpg server problems
+  - wget -qO- 'https://github.com/tianon/pgp-happy-eyeballs/raw/master/hack-my-builds.sh' | bash
   # - wget https://github.com/strapdata/bach/raw/master/install-jdk.sh
   - wget https://raw.githubusercontent.com/sormuras/bach/master/install-jdk.sh
   - chmod a+x install-jdk.sh
-  # solves gpg server problems
-  - wget -qO- 'https://github.com/tianon/pgp-happy-eyeballs/raw/master/hack-my-builds.sh' | bash
 
 install:
+  - install-jdk.sh -v -e -f 9;
   - install-jdk.sh -v -e -f 12;
   #  - keytool -import -trustcacerts -keystore $JAVA_HOME/lib/security/cacerts -storepass changeit -alias SFSRootCAG2x -file SFSRootCAG2.pem -noprompt
   - java -version
