@@ -20,6 +20,7 @@ language:
 
 jdk:
   - oraclejdk11
+  - oraclejdk10
   - oraclejdk8
   - oraclejdk9
 
@@ -42,16 +43,12 @@ before_install:
   # solves gpg server problems
   - wget -qO- 'https://github.com/tianon/pgp-happy-eyeballs/raw/master/hack-my-builds.sh' | bash
 
-matrix:
-  include:
-# Java 11 "Oracle JDK" install
-    - install: $TRAVIS_BUILD_DIR/install-jdk.sh -v -f 11; keytool -import -trustcacerts -keystore $JAVA_HOME/lib/security/cacerts -storepass changeit -alias SFSRootCAG2x -file SFSRootCAG2.pem -noprompt
-
 install:
-  - ant -version
-  - jdk_switcher use oraclejdk11
+  - $TRAVIS_BUILD_DIR/install-jdk.sh -v -f 12; keytool -import -trustcacerts -keystore $JAVA_HOME/lib/security/cacerts -storepass changeit -alias SFSRootCAG2x -file SFSRootCAG2.pem -noprompt
+  - jdk_switcher use openjdk12
   - java -version
   - ./gradlew --version
+  - ant -version
 
 script:
   - ./gradlew server:test -Dbuild.snapshot=false
