@@ -20,9 +20,9 @@ language:
   - bash
 
 jdk:
+  - oraclejdk12
   - oraclejdk8
   - oraclejdk9
-  - oraclejdk12
 
 services:
   - docker
@@ -50,8 +50,10 @@ matrix:
       install: . ./install-jdk.sh -v -f 9; keytool -import -trustcacerts -keystore $JAVA_HOME/lib/security/cacerts -storepass changeit -alias SFSRootCAG2x -file SFSRootCAG2.pem -noprompt
 
 install:
+  - ant -version
+  - jdk_switcher use oraclejdk12
+  - java -version
   - ./gradlew --version
-  - ant deps
 
 script:
   - ./gradlew server:test -Dbuild.snapshot=false
