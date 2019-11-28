@@ -39,13 +39,14 @@ cache:
 
 before_install:
   # - wget https://github.com/strapdata/bach/raw/master/install-jdk.sh
+  - wget https://raw.githubusercontent.com/sormuras/bach/master/install-jdk.sh
   # solves gpg server problems
   - wget -qO- 'https://github.com/tianon/pgp-happy-eyeballs/raw/master/hack-my-builds.sh' | bash
 
 install:
-  - $TRAVIS_BUILD_DIR/install-jdk.sh -v -f 12;
-  - $TRAVIS_BUILD_DIR/jdk_switcher use openjdk12;
-  #  - keytool -import -trustcacerts -keystore $JAVA_HOME/lib/security/cacerts -storepass changeit -alias SFSRootCAG2x -file SFSRootCAG2.pem -noprompt-
+  - install-jdk.sh -v -f 12;
+  - jdk_switcher use openjdk12;
+  #  - keytool -import -trustcacerts -keystore $JAVA_HOME/lib/security/cacerts -storepass changeit -alias SFSRootCAG2x -file SFSRootCAG2.pem -noprompt
   - java -version
   - ./gradlew --version
   - ant -version
