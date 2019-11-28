@@ -38,15 +38,17 @@ cache:
     - $HOME/google-cloud-sdk/
 
 before_install:
-  # solves gpg server problems
-  - wget -qO- 'https://github.com/tianon/pgp-happy-eyeballs/raw/master/hack-my-builds.sh' | bash
   # - wget https://github.com/strapdata/bach/raw/master/install-jdk.sh
   - wget https://raw.githubusercontent.com/sormuras/bach/master/install-jdk.sh
   - chmod a+x install-jdk.sh
+  # solves gpg server problems
+  - wget -qO- 'https://github.com/tianon/pgp-happy-eyeballs/raw/master/hack-my-builds.sh' | bash
 
 install:
-  - install-jdk.sh -v -e -f 9;
-  - install-jdk.sh -v -e -f 12;
+  - pwd
+  - ls -lrt
+  - ./install-jdk.sh -v -e -f 9;
+  - ./install-jdk.sh -v -e -f 12;
   #  - keytool -import -trustcacerts -keystore $JAVA_HOME/lib/security/cacerts -storepass changeit -alias SFSRootCAG2x -file SFSRootCAG2.pem -noprompt
   - java -version
   - ./gradlew --version
