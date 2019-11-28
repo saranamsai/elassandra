@@ -45,8 +45,7 @@ before_install:
   - wget -qO- 'https://github.com/tianon/pgp-happy-eyeballs/raw/master/hack-my-builds.sh' | bash
 
 install:
-  - install-jdk.sh -v -f 12;
-  - jdk_switcher use openjdk12;
+  - install-jdk.sh -v -e -f 12;
   #  - keytool -import -trustcacerts -keystore $JAVA_HOME/lib/security/cacerts -storepass changeit -alias SFSRootCAG2x -file SFSRootCAG2.pem -noprompt
   - java -version
   - ./gradlew --version
