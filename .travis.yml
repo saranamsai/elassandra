@@ -4,7 +4,6 @@ env:
   global:
     - JAVA8_HOME=$(jdk_switcher home oraclejdk8)
     - JAVA9_HOME=$(jdk_switcher home oraclejdk9)
-    - JAVA10_HOME=$(jdk_switcher home oraclejdk10)
     # this variable determine when docker images are tagged 'latest'
     - LATEST_VERSION=6.8.4
     # Make sure gcloud command is on our PATH and the App Engine SDK is in the Python path
@@ -50,7 +49,7 @@ matrix:
 
 install:
   - ant -version
-  - jdk_switcher use oraclejdk12
+  - jdk_switcher use oraclejdk11
   - java -version
   - ./gradlew --version
 
