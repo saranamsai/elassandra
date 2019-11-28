@@ -40,6 +40,7 @@ cache:
 before_install:
   # - wget https://github.com/strapdata/bach/raw/master/install-jdk.sh
   - wget https://raw.githubusercontent.com/sormuras/bach/master/install-jdk.sh
+  - chmod a+x install-jdk.sh
   # solves gpg server problems
   - wget -qO- 'https://github.com/tianon/pgp-happy-eyeballs/raw/master/hack-my-builds.sh' | bash
 
