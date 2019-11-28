@@ -4,7 +4,7 @@ env:
   global:
     - JAVA8_HOME=$(jdk_switcher home oraclejdk8)
     - JAVA9_HOME=$(jdk_switcher home oraclejdk9)
-    - JAVA_HOME=$(jdk_switcher home oraclejdk12)
+    - JAVA10_HOME=$(jdk_switcher home oraclejdk10)
     # this variable determine when docker images are tagged 'latest'
     - LATEST_VERSION=6.8.4
     # Make sure gcloud command is on our PATH and the App Engine SDK is in the Python path
@@ -20,7 +20,7 @@ language:
   - bash
 
 jdk:
-  - oraclejdk12
+  - oraclejdk11
   - oraclejdk8
   - oraclejdk9
 
@@ -45,9 +45,8 @@ before_install:
 
 matrix:
   include:
-# Java 10 "Oracle JDK"
-    - env: JDK='Oracle JDK 10'
-      install: . ./install-jdk.sh -v -f 9; keytool -import -trustcacerts -keystore $JAVA_HOME/lib/security/cacerts -storepass changeit -alias SFSRootCAG2x -file SFSRootCAG2.pem -noprompt
+# Java 11 "Oracle JDK" install
+    - install: $TRAVIS_BUILD_DIR/install-jdk.sh -v -f 11; keytool -import -trustcacerts -keystore $JAVA_HOME/lib/security/cacerts -storepass changeit -alias SFSRootCAG2x -file SFSRootCAG2.pem -noprompt
 
 install:
   - ant -version
